@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Enums\UserTypeEnum;
 
 class UserSeeder extends Seeder
 {
@@ -15,19 +16,19 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert(
+        DB::table('users')->insert([
             [
                 'name' => Str::random(10),
-                'email' => Str::random(10).'@gmail.com',
+                'email' => 'test1@gmail.com',
                 'password' => Hash::make('password'),
-                'user_type' => 'manager',
+                'user_type' => UserTypeEnum::Manager,
             ],
             [
                 'name' => Str::random(10),
-                'email' => Str::random(10).'@gmail.com',
+                'email' => 'test2@gmail.com',
                 'password' => Hash::make('password'),
-                'user_type' => 'user',
+                'user_type' => UserTypeEnum::User,
             ],
-        );
+        ]);
     }
 }

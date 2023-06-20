@@ -14,7 +14,7 @@ class BookSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('books')->insert(
+        DB::table('books')->insert([
             [
                 'title' => Str::random(10),
                 'description' => Str::random(50),
@@ -29,6 +29,6 @@ class BookSeeder extends Seeder
                 'author' => Str::random(10),
                 'price' => 15,
             ],
-        );
+        ]);
     }
 }

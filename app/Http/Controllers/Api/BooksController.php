@@ -36,7 +36,7 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', $book);
+        $this->authorize('create', Book::class);
 
         $path = "";
         if ($request->hasFile('cover_photo')){
@@ -131,18 +131,23 @@ class BooksController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function borrow(Request $request, Book $book)
+    public function borrow(Request $request)
     {
-        $user_id = $request->user()->id;
+        $book = Book::find($request->input('book_id'));
+        if (!$book) {
+            return response([
+                'message' => 'This book does not exist.'
+            ], 400);
+        }
+
         if ($book->borrowed_by) {
             return response([
                 'message' => 'This book was borrowed by someone already.'
             ], 400);
         }
 
-        $book->update([
-            'borrowed_by' => $user_id,
-        ]);
+        $book->borrowedByUser()->associate($request->user());
+        $book->save();
 
         return response([
             'id' => $book->id,

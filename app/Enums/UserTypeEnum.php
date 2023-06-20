@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum ProductStatusEnum:string {
+enum UserTypeEnum:string {
     case User = 'user';
     case Manager = 'manager';
 }
