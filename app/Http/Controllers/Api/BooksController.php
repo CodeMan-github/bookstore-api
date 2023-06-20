@@ -123,4 +123,31 @@ class BooksController extends Controller
             'message' => 'The book was deleted successfully.'
         ], 200);
     }
+
+    /**
+     * Borrow the specified book.
+     *
+     * @param  \App\Http\Requests\BooksRequest  $request
+     * @param  \App\Models\Book  $book
+     * @return \Illuminate\Http\Response
+     */
+    public function borrow(Request $request, Book $book)
+    {
+        $user_id = $request->user()->id;
+        if ($book->borrowed_by) {
+            return response([
+                'message' => 'This book was borrowed by someone already.'
+            ], 400);
+        }
+
+        $book->update([
+            'borrowed_by' => $user_id,
+        ]);
+
+        return response([
+            'id' => $book->id,
+            'title' => $book->title,
+            'message' => 'You borrowed the book successfully.'
+        ], 200);
+    }
 }

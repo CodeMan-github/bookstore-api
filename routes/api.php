@@ -21,4 +21,5 @@ Route::post('/auth/login', [AuthenticationController::class, 'login']);
 
 Route::middleware('auth:api')->prefix('v1')->group(function () {
     Route::apiResource('/books', BooksController::class);
+    Route::post('/book/borrow', [BooksController::class, 'borrow']);
 });
