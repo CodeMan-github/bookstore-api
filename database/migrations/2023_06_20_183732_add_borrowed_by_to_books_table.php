@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->bigInteger('borrowed_by')->unsigned();
+            $table->bigInteger('borrowed_by')->unsigned()->nullable()->constrained();
             $table->foreign('borrowed_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
