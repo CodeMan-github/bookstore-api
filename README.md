@@ -1,66 +1,122 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Bookstore api
+Create a bookstore api 
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Constraints:
+1. Laravel 9+ (PHP 8.1+)
+2. Git
 
-## About Laravel
+### API Requirements:
+1. Users can view the book details.
+2. Users can borrow books and retrieve the borrowed books details.
+3. Managers can add new, update details, or remove books.
+4. Create/Update seeders accordingly
+5. Api testing - 3 tests minimum.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#### Book model:
+- Title
+- Description
+- Publisher
+- Author
+- Cover Photo
+- Price
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Come up with a solution for any other required model(s)**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## API Endpoints
 
-## Learning Laravel
+### **Auth**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### *Register*
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+URL Parameters:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- `name` - string / *must not be greater than 255 characters*
+- `email` - string / *must not be greater than 255 characters and must be a valid email address.*
+- `password` - string  
+- `user_type` - string  / *must be `user` or `manager`*
 
-## Laravel Sponsors
+Endpoints:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- `POST api/auth/register`
 
-### Premium Partners
+#### *Login*
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+URL Parameters:
 
-## Contributing
+- `email` - string / *must be a valid email address.*
+- `password` - string  
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Endpoints:
 
-## Code of Conduct
+- `POST api/auth/login`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+### **Books**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Note: All endpoints requires authentication.
 
-## License
+#### *Display a listing of the books*
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Endpoints:
+
+- `GET api/v1/books`
+
+#### *Store a newly created book in storage*
+
+Endpoints:
+
+- `POST api/v1/books`
+
+#### *Display the specified book*
+
+URL Parameters:
+
+- `id` - integer 
+
+Endpoints:
+
+- `GET api/v1/books/{id}`
+
+#### *Update the specified book in storage*
+
+URL Parameters:
+
+- `id` - integer  
+
+Endpoints:
+
+- `PUT api/v1/books/{id}`
+- `PATCH api/v1/books/{id}`
+
+#### *Remove the specified book from storage*
+
+URL Parameters:
+
+- `id` - integer 
+
+Endpoints:
+
+- `DELETE api/v1/books/{id}`
+
+#### *Borrow the specified book*
+
+POST Parameters:
+
+- `book_id` - integer  
+
+Endpoints:
+
+- `POST api/v1/books/{id}`
+
+## How To Run
+
+- Clone the repository to your local machine and navigate to the project's root directory in a terminal.
+- Copy the `.env.example` file and name it `.env`.
+- Update the `.env` file with the appropriate database credentials and settings.
+- Run `composer install` to install all the required dependencies.
+- Generate an application key by running `php artisan key:generate`.
+- Run database migrations by running `php artisan migrate`.
+- Run database seeds by running `php artisan db:seed`.
+- Run api tests by running `php artisan test`.
+- Run the Laravel server by running `php artisan serve`.
