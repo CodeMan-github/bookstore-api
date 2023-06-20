@@ -45,4 +45,9 @@ class User extends Authenticatable
         'password' => 'hashed',
         'user_type' => UserTypeEnum::class,
     ];
+
+    public function borrowedBooks()
+    {
+        return $this->hasMany(Book::class, 'borrowed_by', 'id');
+    }
 }
