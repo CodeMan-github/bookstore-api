@@ -33,6 +33,7 @@ URL Parameters:
 - `name` - string / *must not be greater than 255 characters*
 - `email` - string / *must not be greater than 255 characters and must be a valid email address.*
 - `password` - string  
+- `password_confirmation` - string  
 - `user_type` - string  / *must be `user` or `manager`*
 
 Endpoints:
