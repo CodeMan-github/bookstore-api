@@ -108,7 +108,7 @@ POST Parameters:
 
 Endpoints:
 
-- `POST api/v1/books/{id}`
+- `POST api/v1/book/borrow`
 
 ## How To Run
 
