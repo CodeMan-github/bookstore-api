@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rules\Enum;
+use App\Enums\UserTypeEnum;
 
 class AuthenticationController extends Controller
 {
@@ -13,7 +15,8 @@ class AuthenticationController extends Controller
         $data = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed',
+            'user_type' => [new Enum(UserTypeEnum::class)],
         ]);
 
         $data['password'] = bcrypt($request->password);

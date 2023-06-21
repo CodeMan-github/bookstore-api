@@ -9,9 +9,39 @@ use Laravel\Passport\Passport;
 use App\Models\User;
 use App\Models\Book;
 use Illuminate\Support\Str;
+use App\Enums\UserTypeEnum;
 
 class BookTest extends TestCase
 {
+    public function test_user_register(): void
+    {
+        $response = $this->postJson(
+            '/api/auth/register',
+            [
+                'name' => 'test3',
+                'email' => 'test3@gmail.com',
+                'password' => 'password',
+                'password_confirmation' => 'password',
+                'user_type' => UserTypeEnum::Manager,
+            ]
+        );
+
+        $response->assertStatus(200);
+    }
+
+    public function test_user_login(): void
+    {
+        $response = $this->postJson(
+            '/api/auth/login',
+            [
+                'email' => 'test3@gmail.com',
+                'password' => 'password',
+            ]
+        );
+
+        $response->assertStatus(200);
+    }
+
     public function test_get_books(): void
     {
         Passport::actingAs(
