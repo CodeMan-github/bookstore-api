@@ -21,7 +21,7 @@ class BooksController extends Controller
             ->paginate(5);
 
         return response([
-            'books' => BooksResource::collection($books),
+            'books' => $books,
             'message' => 'Success!'
         ], 200);
     }
@@ -168,7 +168,7 @@ class BooksController extends Controller
             ->paginate(5);
 
         return response([
-            'books' => BooksResource::collection($borrowedBooks),
+            'books' => $borrowedBooks,
             'message' => 'Success!'
         ], 200);
     }
