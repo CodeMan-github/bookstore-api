@@ -108,7 +108,13 @@ POST Parameters:
 
 Endpoints:
 
-- `POST api/v1/book/borrow`
+- `POST api/v1/books/borrow`
+
+#### *Get the borrowed books of the current user*
+
+Endpoints:
+
+- `GET api/v1/books/borrowed`
 
 ## How To Run
 
