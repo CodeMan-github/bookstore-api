@@ -45,7 +45,7 @@ class BookTest extends TestCase
     public function test_get_books(): void
     {
         Passport::actingAs(
-            User::factory()->create(),
+            User::factory()->make(),
             []
         );
         $response = $this->get('/api/v1/books');
@@ -56,7 +56,7 @@ class BookTest extends TestCase
     public function test_create_book(): void
     {
         Passport::actingAs(
-            User::factory()->create(),
+            User::factory()->make(),
             []
         );
 
@@ -77,7 +77,7 @@ class BookTest extends TestCase
     public function test_update_book(): void
     {
         Passport::actingAs(
-            User::factory()->create(),
+            User::factory()->make(),
             []
         );
 
@@ -98,12 +98,12 @@ class BookTest extends TestCase
     public function test_borrow_book(): void
     {
         Passport::actingAs(
-            User::factory()->create(),
+            User::factory()->make(),
             []
         );
 
         $response = $this->postJson(
-            '/api/v1/book/borrow',
+            '/api/v1/books/borrow',
             [
                 'book_id' => 1,
             ]
@@ -112,14 +112,26 @@ class BookTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_delete_book(): void
+    public function test_get_borrowed_books(): void
     {
         Passport::actingAs(
-            User::factory()->create(),
+            User::factory()->make(),
             []
         );
 
-        $response = $this->delete('/api/v1/books/2');
+        $response = $this->get('/api/v1/books/borrowed');
+
+        $response->assertStatus(200);
+    }
+
+    public function test_delete_book(): void
+    {
+        Passport::actingAs(
+            User::factory()->make(),
+            []
+        );
+
+        $response = $this->delete('/api/v1/books/3');
 
         $response->assertStatus(200);
     }

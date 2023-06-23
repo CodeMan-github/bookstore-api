@@ -23,7 +23,7 @@ class BooksController extends Controller
         return response([
             'books' => BooksResource::collection($books),
             'message' => 'Success!'
-        ], 200) ;
+        ], 200);
     }
 
     /**
@@ -128,7 +128,6 @@ class BooksController extends Controller
      * Borrow the specified book.
      *
      * @param  \App\Http\Requests\BooksRequest  $request
-     * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
     public function borrow(Request $request)
@@ -153,6 +152,24 @@ class BooksController extends Controller
             'id' => $book->id,
             'title' => $book->title,
             'message' => 'You borrowed the book successfully.'
+        ], 200);
+    }
+
+    /**
+     * Display the borrowed books of the current user.
+     *
+     * @param  \App\Http\Requests\BooksRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getBorrowed(Request $request)
+    {
+        $borrowedBooks = $request->user()
+            ->borrowedBooks()
+            ->paginate(5);
+
+        return response([
+            'books' => BooksResource::collection($borrowedBooks),
+            'message' => 'Success!'
         ], 200);
     }
 }

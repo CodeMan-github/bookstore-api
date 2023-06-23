@@ -20,6 +20,7 @@ Route::post('/auth/register', [AuthenticationController::class, 'register']);
 Route::post('/auth/login', [AuthenticationController::class, 'login']);
 
 Route::middleware('auth:api')->prefix('v1')->group(function () {
+    Route::get('/books/borrowed', [BooksController::class, 'getBorrowed']);
+    Route::post('/books/borrow', [BooksController::class, 'borrow']);
     Route::apiResource('/books', BooksController::class);
-    Route::post('/book/borrow', [BooksController::class, 'borrow']);
 });
